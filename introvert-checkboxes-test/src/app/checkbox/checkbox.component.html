@@ -1,0 +1,17 @@
+<section class="example-section">
+  <div class="dropdown-toggle" (click)="toggleDropdown()">
+    <mat-checkbox [checked]="task().completed" [indeterminate]="partiallyComplete()" (change)="update($event.checked)">
+      {{ isDropdownOpen ? (hasSelected() ? 'Снять выделение' : 'Выбрать всё') : getText() }}
+    </mat-checkbox>
+  </div>
+  <ul *ngIf="isDropdownOpen" class="subtask-list">
+    @for (subtask of task().subtasks; track subtask; let i = $index) {
+      <li class="subtask-item" [ngStyle]="getStyle(i)">
+        <mat-checkbox [checked]="subtask.completed" (change)="update($event.checked, i)">
+          {{ subtask.name }}
+        </mat-checkbox>
+      </li>}
+  </ul>
+</section>
+
+
